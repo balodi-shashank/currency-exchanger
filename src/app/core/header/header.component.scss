@@ -1,0 +1,37 @@
+:host {
+    header {
+        border: 1px solid #ffffff;
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            .navbar-brand {
+                img {
+                    max-width: 70px;
+                    max-height: 70px;
+                    cursor: pointer;
+                }       
+            }
+    
+            .details-section {
+                .list {
+                    list-style: none;
+                    display: flex;
+                     justify-content: space-around;
+                    .item {
+                        width: auto;
+                        border: 1px solid #ffffff;
+                        padding: 10px;
+                        cursor: pointer;
+                    }
+
+                    .item:first-child {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        
+    }
+    
+}

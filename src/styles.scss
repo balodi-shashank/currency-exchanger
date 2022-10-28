@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/css/button.scss";
+
+body {
+    background-color: #404040;
+    color: #ffffff;
+    font-family: 'Roboto', Helvetica, Arial, serif;
+}
+
+.flex {
+    display: flex;
+    &.row {
+        flex-direction: row;
+    }
+    &.column {
+        flex-direction: column;
+    }
+    &.sb {
+        justify-content: space-between;
+    }
+    &.align-c {
+        align-items: center;
+    }
+    .grow-1 {
+        flex-grow: 1;
+    }
+    .grow-2 {
+        flex-grow: 2;
+    }
+}

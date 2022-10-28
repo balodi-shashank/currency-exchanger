@@ -1,0 +1,40 @@
+:host {
+    .wrapper{
+        height: 20vh;
+        border: 1px solid #ffffff;
+        padding: 10px;
+        .left {
+            padding-right: 20px;
+        
+            .convert-icon {
+                padding: 0px 20px;
+                border: 1px solid #fff;
+                width: 90px;
+                height: 45px;
+            }
+
+            .conversion-rate {
+                border: 1px solid #ffffff;
+                text-align: center;
+                padding: 10px;
+            }
+        }
+
+        .right {
+    
+            .result-section {
+                .result {
+                    border: 1px solid #ffffff;
+                    padding: 20px 0;
+                    margin-right: 10px;
+                    text-align: center;
+                }
+                .more-details-btn {
+    
+                }
+            }
+        }
+
+    }
+    
+}
