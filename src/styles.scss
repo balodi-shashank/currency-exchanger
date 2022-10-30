@@ -1,10 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "./assets/css/button.scss";
+@import "./assets/css/theme.scss";
+@import "./assets/css/variables.scss";
+
 
 body {
-    background-color: #404040;
+    min-width: 400px;
+    max-width: 900px;
+    background-color: $dark-700;
     color: #ffffff;
     font-family: 'Roboto', Helvetica, Arial, serif;
+    padding: 10px;
+    font-size: 14px;
+    margin: auto;
+}
+
+.form-control, 
+.form-control:focus {
+    background: $dark-700 !important;
+    color: $white !important;
+}
+
+.form-select {
+    background: $dark-600 !important;
+    color: $white !important;
+    border-color: $dark-600 !important;
 }
 
 .flex {
@@ -18,6 +40,9 @@ body {
     &.sb {
         justify-content: space-between;
     }
+    &.sa {
+        justify-content: space-around;
+    }
     &.align-c {
         align-items: center;
     }
@@ -27,4 +52,18 @@ body {
     .grow-2 {
         flex-grow: 2;
     }
+}
+
+.blue-snackbar {
+    background: $blue-500;
+    position: fixed;
+    bottom: 0 !important;
+    right: 0;
+}
+
+.warn-snackbar {
+    background: $warn-600;
+    position: fixed;
+    bottom: 0 !important;
+    right: 0;
 }

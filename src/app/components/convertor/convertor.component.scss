@@ -1,40 +1,55 @@
+@import "../../../assets/css/variables.scss";
+
 :host {
     .wrapper{
         height: 20vh;
-        border: 1px solid #ffffff;
+        border: 1px solid $white;
         padding: 10px;
         .left {
-            padding-right: 20px;
-        
+            width: 350px;
+            padding-right: 20px; 
             .convert-icon {
                 padding: 0px 20px;
-                border: 1px solid #fff;
+                border: 1px solid $white;
                 width: 90px;
                 height: 45px;
             }
 
             .conversion-rate {
-                border: 1px solid #ffffff;
+                border: 1px solid $white;
+                border-radius: 6px;
                 text-align: center;
                 padding: 10px;
             }
         }
 
         .right {
-    
+            .convert-icon-wrapper {
+                padding: 0 20px;
+                font-size: 20px;
+            }
             .result-section {
                 .result {
-                    border: 1px solid #ffffff;
+                    border: 1px solid $white;
+                    border-radius: 6px;
                     padding: 20px 0;
                     margin-right: 10px;
                     text-align: center;
                 }
-                .more-details-btn {
-    
-                }
             }
         }
+    }
 
+    .tile {
+        border: 1px solid #ffffff;
+        width: 32%;
+        height: 180px;
+        float: left;
+        margin: 20px 17px 0 0;
+        padding: 10px;
+        &:nth-of-type(3n) {
+            margin-right: 0;
+        }
     }
     
 }

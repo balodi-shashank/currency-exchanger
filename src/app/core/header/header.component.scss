@@ -1,6 +1,8 @@
+@import "../../../assets/css/variables.scss";
+
 :host {
     header {
-        border: 1px solid #ffffff;
+        border: 1px solid $white;
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -20,7 +22,8 @@
                      justify-content: space-around;
                     .item {
                         width: auto;
-                        border: 1px solid #ffffff;
+                        border: 1px solid $white;    
+                        border-radius: 6px;
                         padding: 10px;
                         cursor: pointer;
                     }

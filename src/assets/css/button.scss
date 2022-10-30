@@ -1,13 +1,13 @@
 @import "./variables.scss";
 
-.btn {
+.ce-btn {
     height: 40px;
     color: $white;
-    background: $blue;
-    border: 1px solid $blue;
+    background: $blue-500;
+    border: 1px solid $blue-500;
     cursor: pointer;
     &:hover {
-        background: $dark-blue;
-        border-color: $dark-blue;
+        background: $blue-700;
+        border-color: $blue-700;
     }
 }

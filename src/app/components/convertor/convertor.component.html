@@ -1,32 +1,71 @@
 <div class="wrapper flex sb">
-    <div class="left flex column sb grow-1">
+    <div class="left flex column sb">
         <div class="flex column">
-            <label for="amount">Amount</label>
-            <input type="number">
+            <label for="amountFormControlInput1" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="amountFormControlInput1" min="1" #inputAmount>
         </div>
 
-        <div class="conversion-rate">1 EUR = XX XX USD</div>
+        <div class="conversion-rate">1 {{ selectedFromCurrency }} = {{ selectedConversionRate }} {{ selectedToCurrency }}</div>
     </div>
     <div class="right flex column sb grow-2">
         <div class="flex sb align-c">
-            <div class="flex column">
-                <label for="amount">From</label>
-                <select name="" id="">
-                    <option value="">USD</option>
+            <div class="flex column grow-1">
+                <select 
+                    class="form-select" 
+                    aria-label="Default select"
+                    (change)="getExchangeRates(fromInput.value)"
+                    #fromInput
+                >
+                    <ng-container *ngFor="let item of fromSymbols | keyvalue; let i = index;">
+                        <option 
+                            [value]="item.key"
+                            [selected]="item.key === 'EUR'"
+                        >
+                            {{ item.key }}: {{ item.value }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
-            <img class="convert-icon" src="../../../assets/icons/convert-arcolumn.png" alt="">
-            <div class="flex column">
-                <label for="amount">To</label>
-                <select name="" id="">
-                    <option value="">EUR</option>
+            <div class="flex column grow-1 convert-icon-wrapper"> 
+                <i class="bi bi-arrow-left-right"></i>
+            </div>
+            <div class="flex column grow-1">
+                <select 
+                    class="form-select"
+                    aria-label="Default select"
+                    [disabled]="toSymbols.length === 0"
+                    (change)="updateRate(toInput.value)"
+                    #toInput
+                >
+                    <ng-container *ngFor="let item of toSymbols | keyvalue; let i = index;">
+                        <option 
+                            [value]="item.key"
+                            [selected]="item.key === 'USD'"
+                        >
+                        {{ item.key }}: {{ item.value }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
         </div>
-        <button class="btn">Convert</button>
+        <button 
+            class="btn btn-primary"
+            (click)="exchangeCurrencyAction(fromInput.value, toInput.value, +inputAmount.value)"
+        >
+        Convert
+        </button>
         <div class="flex result-section align-c">
-            <div class="result grow-1">XX.XX USD</div>
-            <button class="btn more-details-btn grow-1">More Details</button>
+            <div class="result grow-1">{{ exchangeResult }}</div>
+            <button class="btn btn-primary grow-1">More Details</button>
         </div>
     </div>
 </div>
+<div class="w-100">
+    <ng-container *ngFor="let item of popularConversion">
+      <div class="tile flex column sa" *ngIf="item?.result">
+        <div>From: {{item.from}}</div>
+        <div>To: {{item.to}}</div>
+        <div class="converted-result"> {{item?.result}} {{item.to}}</div>
+      </div>
+    </ng-container>
+  </div>

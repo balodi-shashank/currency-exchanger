@@ -1,0 +1,14 @@
+{
+    "success": true,
+    "query": {
+        "from": "USD",
+        "to": "INR",
+        "amount": 1000
+    },
+    "info": {
+        "timestamp": 1667122083,
+        "rate": 82.287704
+    },
+    "date": "2022-10-30",
+    "result": 82287.704
+}
