@@ -2,65 +2,52 @@
     <div class="left flex column sb">
         <div class="flex column">
             <label for="amountFormControlInput1" class="form-label">Amount</label>
-            <input type="number" class="form-control" id="amountFormControlInput1" min="1" #inputAmount>
+            <input type="number" class="form-control" id="amountFormControlInput1" min="1"
+                (input)="setInput(+inputAmount.value)" #inputAmount>
         </div>
 
-        <div class="conversion-rate">1 {{ selectedFromCurrency }} = {{ selectedConversionRate }} {{ selectedToCurrency }}</div>
+        <div class="conversion-rate">1 {{ selectedFromCurrency }} = {{ selectedConversionRate }} {{ selectedToCurrency
+            }}</div>
     </div>
     <div class="right flex column sb grow-2">
         <div class="flex sb align-c">
             <div class="flex column grow-1">
-                <select 
-                    class="form-select" 
-                    aria-label="Default select"
-                    (change)="getExchangeRates(fromInput.value)"
-                    #fromInput
-                >
+                <select class="form-select" [ngClass]="{'disabled': inputValue <= 0}" aria-label="Default select"
+                    [disabled]="!inputValue" #fromInput>
                     <ng-container *ngFor="let item of fromSymbols | keyvalue; let i = index;">
-                        <option 
-                            [value]="item.key"
-                            [selected]="item.key === 'EUR'"
-                        >
+                        <option [value]="item.key" [selected]="item.key === 'EUR'">
                             {{ item.key }}: {{ item.value }}
                         </option>
                     </ng-container>
                 </select>
             </div>
-            <div class="flex column grow-1 convert-icon-wrapper"> 
+            <div class="flex column grow-1 convert-icon-wrapper">
                 <i class="bi bi-arrow-left-right"></i>
             </div>
             <div class="flex column grow-1">
-                <select 
-                    class="form-select"
-                    aria-label="Default select"
-                    [disabled]="toSymbols.length === 0"
-                    (change)="updateRate(toInput.value)"
-                    #toInput
-                >
+                <select class="form-select" aria-label="Default select" [ngClass]="{'disabled': inputValue <= 0}"
+                    [disabled]="inputValue <= 0" (change)="updateRate(toInput.value);getExchangeRates(fromInput.value);"
+                    #toInput>
                     <ng-container *ngFor="let item of toSymbols | keyvalue; let i = index;">
-                        <option 
-                            [value]="item.key"
-                            [selected]="item.key === 'USD'"
-                        >
-                        {{ item.key }}: {{ item.value }}
+                        <option [value]="item.key" [selected]="item.key === 'USD'">
+                            {{ item.key }}: {{ item.value }}
                         </option>
                     </ng-container>
                 </select>
             </div>
         </div>
-        <button 
-            class="btn btn-primary"
-            (click)="exchangeCurrencyAction(fromInput.value, toInput.value, +inputAmount.value)"
-        >
-        Convert
+        <button class="btn btn-primary" [disabled]="inputValue <= 0"
+            (click)="exchangeCurrencyAction(fromInput.value, toInput.value, inputValue)">
+            Convert
         </button>
         <div class="flex result-section align-c">
             <div class="result grow-1">{{ exchangeResult }}</div>
-            <button class="btn btn-primary grow-1">More Details</button>
+            <button class="btn btn-primary grow-1" *ngIf="!showHistory"
+                (click)="showHistorySection(fromInput.value, toInput.value)">More Details</button>
         </div>
     </div>
 </div>
-<div class="w-100">
+<!-- <div class="w-100">
     <ng-container *ngFor="let item of popularConversion">
       <div class="tile flex column sa" *ngIf="item?.result">
         <div>From: {{item.from}}</div>
@@ -68,4 +55,20 @@
         <div class="converted-result"> {{item?.result}} {{item.to}}</div>
       </div>
     </ng-container>
-  </div>
+  </div> -->
+
+<div class="w-100" *ngIf="!showHistory">
+    <ng-container *ngFor="let item of topCurrencies">
+        <div class="tile flex column sa">
+            <div>From: {{fromInput.value}}</div>
+            <div>To: {{item}}</div>
+            <div class="converted-result"> {{getConversion(inputValue, item)}} {{item}}</div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="w-100" *ngIf="showHistory">
+    <div class="history-chart">
+        <app-history-chart [data]="chartData"></app-history-chart>
+    </div>
+</div>

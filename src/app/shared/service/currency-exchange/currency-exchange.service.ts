@@ -6,19 +6,22 @@ import { ConvertAPIResponse } from '../../interface/convert-api-response.model';
 import { ExchangeRatesResponse } from '../../interface/exchange-rates.model';
 import { HistoricalRatesAPIResponse } from '../../interface/historical-rates-api-response.model';
 import { SymbolsResponse } from '../../interface/symbols.model';
+import { UtilsService } from '../utils/utils.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencyExchangeService {
 
-  constructor(public _http: HttpClient) { }
+  constructor(public _http: HttpClient,
+    private utilsService: UtilsService  
+  ) { }
 
   public getExchangeRates(baseCurrency: string): Observable<ExchangeRatesResponse> | Observable<any> {
     if(environment.production) {
       return this._http.get<ExchangeRatesResponse>(`${environment.baseAPIUrl}/latest?base=${baseCurrency}`);
     } else {
-      return this.getMockResponse('exchange-rates');
+      return this.utilsService.getMockResponse('exchange-rates');
     }
   }
 
@@ -26,7 +29,7 @@ export class CurrencyExchangeService {
     if(environment.production) {
       return this._http.get<SymbolsResponse>(`${environment.baseAPIUrl}/symbols?base=${baseCurrency}`);
     } else {
-      return this.getMockResponse('symbols');
+      return this.utilsService.getMockResponse('symbols');
     }
   }
 
@@ -35,16 +38,16 @@ export class CurrencyExchangeService {
     if(environment.production) {
       return this._http.get<ConvertAPIResponse>(`${environment.baseAPIUrl}/convert?to=${to}&from=${from}&amount=${amount}`);
     } else {
-      return this.getMockResponse('conversion');
+      return this.utilsService.getMockResponse('conversion');
     }
   }
 
-  public getHistoricalRates(data: { date: string, base: string }): Observable<HistoricalRatesAPIResponse> | Observable<any> {
-    const { date, base } = data;
+  public getHistoricalRates(data: { date: string, symbol: string }): Observable<HistoricalRatesAPIResponse> | Observable<any> {
+    const { date, symbol } = data;
     if(environment.production) {
-      return this._http.get<HistoricalRatesAPIResponse>(`${environment.baseAPIUrl}/${date}?base=${base}`);
+      return this._http.get<HistoricalRatesAPIResponse>(`${environment.baseAPIUrl}/${date}?symbol=${symbol}`);
     } else {
-      return this.getMockResponse('historical-rates');
+      return this.utilsService.getMockResponse('historical-rates');
     }
   }
 
@@ -53,13 +56,9 @@ export class CurrencyExchangeService {
     if(environment.production) {
       return this._http.get<HistoricalRatesAPIResponse>(`${environment.baseAPIUrl}/timeseries?start_date=${start_date}&end_date=${end_date}`);
     } else {
-      return this.getMockResponse('timeseries-rates');
+      return this.utilsService.getMockResponse('timeseries-rates');
     }
     
-  }
-
-  public getMockResponse(filename: string) {
-    return this._http.get(`../../.././../assets/mocks/${filename}.json`)
   }
 
 }

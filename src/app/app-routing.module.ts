@@ -1,21 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConvertorComponent } from './components/convertor/convertor.component';
-import { DetailsViewComponent } from './components/details-view/details-view.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/convertor',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {
-    path: 'details',
-    component: DetailsViewComponent
-  },
-  {
-    path: 'convertor',
-    component: ConvertorComponent
+    path: 'home',
+    component: HomeComponent
   }
 ];
 

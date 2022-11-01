@@ -1,0 +1,15 @@
+<section>
+  <article>  
+    <app-header></app-header>
+    <ngx-loading-bar></ngx-loading-bar>
+  </article>
+  <article>
+    <main>
+      <div class="redirect">
+        <span class="fs-18">{{ 'main.nav.pageTitle' | translate }}</span>
+        <button class="btn btn-primary" *ngIf="showHistory" (click)="showHistoryChart(false)">Back to Home</button>
+      </div>
+      <app-convertor></app-convertor>
+    </main>
+  </article>
+</section>

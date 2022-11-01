@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailsViewComponent } from './details-view.component';
+import { HistoryChartComponent } from './history-chart.component';
 
-describe('DetailsViewComponent', () => {
-  let component: DetailsViewComponent;
-  let fixture: ComponentFixture<DetailsViewComponent>;
+describe('HistoryChartComponent', () => {
+  let component: HistoryChartComponent;
+  let fixture: ComponentFixture<HistoryChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailsViewComponent ]
+      declarations: [ HistoryChartComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DetailsViewComponent);
+    fixture = TestBed.createComponent(HistoryChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,13 +1,13 @@
 <header>
     <nav class="navbar">
-        <a class="navbar-brand" routerLink="convertor">
+        <a class="navbar-brand">
             <img src="../../../assets/icons/app-logo.png" alt="" srcset="">
         </a>
 
         <div class="details-section">
             <ul class="list">
-                <li class="item" routerLink="details">EUR-USD Details</li>
-                <li class="item" routerLink="details">EUR-GBP Details</li>
+                <li class="item" (click)="showHistoryChart(true, 'USD')">EUR-USD Details</li>
+                <li class="item" (click)="showHistoryChart(true, 'GBP')">EUR-GBP Details</li>
             </ul>
         </div>
     </nav>

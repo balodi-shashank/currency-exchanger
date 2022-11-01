@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { StorageService } from 'src/app/shared/service/storage/storage.service';
+import { UtilsService } from 'src/app/shared/service/utils/utils.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  constructor(private utilsService: UtilsService) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  showHistoryChart(bool: boolean, curr: string) {
+    const showHistory = StorageService.getItem('showHistory');
+    if(showHistory !== bool.toString()) {   
+      this.utilsService.historyChartFor.next(bool.toString());
+    }
+    const historyChartCurr = StorageService.getItem('historyChartCurr');
+    if(historyChartCurr !== curr) {   
+      this.utilsService.historyChartFor.next(curr);
+    }
   }
-
 }

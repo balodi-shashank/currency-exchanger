@@ -1,5 +1,7 @@
 {
     "main": {
-        "title": "Currency Exchange"
+        "nav": {
+            "pageTitle": "Currency Exchange"
+        }
     }    
 }
