@@ -7,10 +7,7 @@ import { environment } from 'src/environments/environment';
 export class MainInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const header = {
-            'method': req.method,
             'apikey': environment.token,
-            'redirect': 'follow',
-            'Content-Type': 'application/json'
         }
         const modified = req.clone({setHeaders: header});
         return next.handle(modified);

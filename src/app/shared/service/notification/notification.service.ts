@@ -84,7 +84,7 @@ export class NotificationService {
       this.notificationService.success("alert oked");
     });
   */
-  alert(message: string, title = 'Notice', okCallback: () => void = () => {}) {
+  alert(message: string, title: string, okCallback: () => void = () => {}) {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       width: '250px',
       data: { message: message, title: title },

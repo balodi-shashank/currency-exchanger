@@ -1,6 +1,7 @@
 {
     "/api": {
       "target": "https://api.apilayer.com/fixer",
+      "changeOrigin": true,
       "secure": false
     }
   }

@@ -20,6 +20,9 @@
         },
         "alert": {
             "ok": "Ok"
+        },
+        "notification": {
+            "notice": "Notice"
         }
     }    
 }

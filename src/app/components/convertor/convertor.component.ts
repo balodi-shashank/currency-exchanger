@@ -147,26 +147,31 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     amount: number
   ): Promise<void> | void {
     if (from && to && amount) {
-      const requestParams = { to, from, amount };
-      const singleConversion = this.currencyExchangeService
-        .getConvert(requestParams)
-        .subscribe((res: any) => {
-          const { success, query, result } = res;
-          const { to } = query;
-          if (success) {
-           // this.exchangeResult = `${result.toFixed(2)}`;
-            const converted = amount * +this.selectedConversionRate;
-            this.exchangeResult = `${converted.toFixed(2)}`;
-          } else {
-            this.notificationService.error(
-              'Exchanges Currency action failed. Please contact administrator.'
-            );
-          }
-        });
+      // direct calculation dome using available exchange rates inorder to avoid API call
 
-      this.subscription.add(singleConversion);
+      // const requestParams = { to, from, amount };
+      // const singleConversion = this.currencyExchangeService
+      //   .getConvert(requestParams)
+      //   .subscribe((res: any) => {
+      //     const { success, query, result } = res;
+      //     const { to } = query;
+      //     if (success) {
+      //       this.exchangeResult = `${result.toFixed(2)}`;
+      //       const converted = amount * +this.selectedConversionRate;
+      //       this.exchangeResult = `${converted.toFixed(2)}`;
+      //     } else {
+      //       this.notificationService.error(
+      //         'Exchanges Currency action failed. Please contact administrator.'
+      //       );
+      //     }
+      //   });
 
-      this.performMultipleConversion(amount, from);
+      // this.subscription.add(singleConversion);
+
+      const converted = amount * +this.selectedConversionRate;
+      this.exchangeResult = `${converted.toFixed(2)}`;
+
+      // this.performMultipleConversion(amount, from);
     } else {
       if (!amount) {
         this.notificationService.error('Please provide amount for conversion');
@@ -288,13 +293,6 @@ export class ConvertorComponent implements OnInit, OnDestroy {
 
     const getHistorySubscription = forkJoin(subscription).subscribe((res) => {
       this.chartData = [];
-      // static data for demo purpose
-      // res = res.map((r) => ({
-      //   ...r,
-      //   rates: {
-      //     USD: 1 + Math.random().toFixed(2),
-      //   },
-      // }));
 
       const toCurrencies = to.split(',');
 
