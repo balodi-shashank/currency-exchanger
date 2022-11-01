@@ -51,7 +51,7 @@
             {{ 'main.convertor.convert' | translate }}
         </button>
         <div class="flex result-section align-c">
-            <div class="result grow-1">{{ exchangeResult }}</div>
+            <div class="result grow-1">{{ exchangeResult }}{{ selectedToCurrency }}</div>
             <button class="btn btn-primary grow-1" *ngIf="!showHistory"
                 (click)="showHistorySection(fromInput.value, toInput.value)">{{ 'main.convertor.moreDetails' | translate }}</button>
         </div>

@@ -154,9 +154,9 @@ export class ConvertorComponent implements OnInit, OnDestroy {
           const { success, query, result } = res;
           const { to } = query;
           if (success) {
-            this.exchangeResult = `${result.toFixed(2)} ${to}`;
+           // this.exchangeResult = `${result.toFixed(2)}`;
             const converted = amount * +this.selectedConversionRate;
-            this.exchangeResult = `${converted.toFixed(2)} ${to}`;
+            this.exchangeResult = `${converted.toFixed(2)}`;
           } else {
             this.notificationService.error(
               'Exchanges Currency action failed. Please contact administrator.'
@@ -231,6 +231,7 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     );
     const rateList = Object.values(this.conversionRates);
     this.selectedConversionRate = rateList[selectedCurrencyIndex] || "XX.XX";
+    this.exchangeResult = "XX.XX";
   }
 
   getConversion(amount: number, toCurrency: string) {
