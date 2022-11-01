@@ -6,30 +6,40 @@
                 (input)="setInput(+inputAmount.value)" #inputAmount>
         </div>
 
-        <div class="conversion-rate">1 {{ selectedFromCurrency }} = {{ selectedConversionRate }} {{ selectedToCurrency
-            }}</div>
+        <div class="conversion-rate">
+            1 {{ selectedFromCurrency }} = {{ selectedConversionRate }} {{ selectedToCurrency }}
+        </div>
     </div>
     <div class="right flex column sb grow-2">
         <div class="flex sb align-c">
             <div class="flex column grow-1">
-                <select class="form-select" [ngClass]="{'disabled': inputValue <= 0}" aria-label="Default select"
-                    [disabled]="!inputValue" #fromInput>
+                <select 
+                    class="form-select" 
+                    [ngClass]="{'disabled': inputValue <= 0}" 
+                    aria-label="Default select"
+                    [disabled]="!inputValue" 
+                    (change)="getExchangeRates(fromInput.value)"
+                    #fromInput
+                >
                     <ng-container *ngFor="let item of fromSymbols | keyvalue; let i = index;">
-                        <option [value]="item.key" [selected]="item.key === 'EUR'">
+                        <option [ngValue]="item.key" [selected]="item.key === selectedFromCurrency">
                             {{ item.key }}: {{ item.value }}
                         </option>
                     </ng-container>
                 </select>
             </div>
-            <div class="flex column grow-1 convert-icon-wrapper">
-                <i class="bi bi-arrow-left-right"></i>
+            <div 
+                class="flex column grow-1 convert-icon-wrapper" 
+                (click)="switchFromTo(fromInput.value, toInput.value)"
+            >
+                <i class="bi bi-arrow-left-right" ></i>
             </div>
             <div class="flex column grow-1">
                 <select class="form-select" aria-label="Default select" [ngClass]="{'disabled': inputValue <= 0}"
-                    [disabled]="inputValue <= 0" (change)="updateRate(toInput.value);getExchangeRates(fromInput.value);"
+                    [disabled]="inputValue <= 0" (change)="updateRate(toInput.value);"
                     #toInput>
                     <ng-container *ngFor="let item of toSymbols | keyvalue; let i = index;">
-                        <option [value]="item.key" [selected]="item.key === 'USD'">
+                        <option [ngValue]="item.key" [selected]="item.key === selectedToCurrency">
                             {{ item.key }}: {{ item.value }}
                         </option>
                     </ng-container>

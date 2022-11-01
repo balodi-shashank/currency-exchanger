@@ -5,7 +5,6 @@ import {
   ConvertAPIResponse,
   Query,
 } from 'src/app/shared/interface/convert-api-response.model';
-import { Currency } from 'src/app/shared/interface/enums.model';
 import { Symbols } from 'src/app/shared/interface/symbols.model';
 import { CurrencyExchangeService } from 'src/app/shared/service/currency-exchange/currency-exchange.service';
 import { NotificationService } from 'src/app/shared/service/notification/notification.service';
@@ -50,30 +49,34 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setDefaults();
-    if (this.showHistory) {
-      StorageService.setItem('pageTitle', 'EUR: European Union EURO');
-    } else {
-      StorageService.setItem('pageTitle', 'Currency Exchange');
-    }
+    this.setDefaults('EUR', 'USD');
   }
 
-  setDefaults() {
+  setDefaults(from: string, to: string) {
     this.chartViewListner();
-    this.loadFromSymbols('EUR');
-    this.getExchangeRates('EUR');
-    this.updateRate('USD');
+    this.loadFromSymbols(from);
+    this.loadToSymbols(Object.keys(this.fromSymbols)[0]);
+    this.getExchangeRates(from);
+    this.updateRate(to);
     this.historyCharForListner();
     StorageService.setItem('showHistory', 'false');
-    StorageService.setItem('historyChartCurr', 'USD');  
+    StorageService.setItem('historyChartCurr', to);  
+    this.utilsService.pageTitle.next('Currency Exchange');
   }
 
   public setInput(value: number): void {
     this.inputValue = value;
   }
 
-  SwitchFromTo(from: string, to: string) {
-    this.loadFromSymbols(to);
+  switchFromTo(from: string, to: string) {
+    const curr1 = from.split(':')[0];
+    const curr2 = to.split(':')[0];
+    this.fromChangeHandler(curr2);
+    this.selectedToCurrency = curr1;
+    this.loadFromSymbols(curr2);
+    this.getExchangeRates(curr2);
+    this.loadToSymbols(curr1);
+    this.updateRate(curr1);
   }
 
   chartViewListner() {
@@ -95,7 +98,6 @@ export class ConvertorComponent implements OnInit, OnDestroy {
         this.fromSymbols = [];
         if (success) {
           this.fromSymbols = symbols;
-          this.loadToSymbols(Object.keys(symbols)[0]);
         } else {
           this.notificationService.error(
             'Unable to load default currencies symbols'
@@ -123,8 +125,9 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   getExchangeRates(base: string): void {
+    this.selectedFromCurrency = base.split(':')[0];
     const excahngeRateSubscription = this.currencyExchangeService
-      .getExchangeRates(base)
+      .getExchangeRates(this.selectedFromCurrency)
       .subscribe((res: any) => {
         const { success, rates } = res;
         if (success) {
@@ -152,6 +155,8 @@ export class ConvertorComponent implements OnInit, OnDestroy {
           const { to } = query;
           if (success) {
             this.exchangeResult = `${result.toFixed(2)} ${to}`;
+            const converted = amount * +this.selectedConversionRate;
+            this.exchangeResult = `${converted.toFixed(2)} ${to}`;
           } else {
             this.notificationService.error(
               'Exchanges Currency action failed. Please contact administrator.'
@@ -220,12 +225,12 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   updateRate(toCurrency: string) {
-    this.selectedToCurrency = toCurrency;
+    this.selectedToCurrency = toCurrency.split(':')[0];
     const selectedCurrencyIndex = Object.keys(this.conversionRates).indexOf(
-      toCurrency
+      this.selectedToCurrency
     );
     const rateList = Object.values(this.conversionRates);
-    this.selectedConversionRate = rateList[selectedCurrencyIndex];
+    this.selectedConversionRate = rateList[selectedCurrencyIndex] || "XX.XX";
   }
 
   getConversion(amount: number, toCurrency: string) {
@@ -249,7 +254,11 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   historyCharForListner() {
     const listner = this.utilsService.historyChartFor.subscribe(
       (curr: string) => {
-        StorageService.setItem('historyChartCurr', curr); 
+        StorageService.setItem('historyChartCurr', curr);
+        const index = Object.keys(this.fromSymbols).indexOf(curr);
+        const title = Object.values(this.fromSymbols)[index];
+        this.utilsService.pageTitle.next(`${curr}: ${title}`);
+        this.selectedToCurrency = curr;
         this.getHistory(curr);
       }
     );
@@ -258,12 +267,14 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   showHistorySection(from: string, to: string) {
-    this.utilsService.historyChartFor.next(to);
+    const fromKey = from.split(':')[0];
+    const toKey = to.split(':')[0];
+    this.utilsService.historyChartFor.next(toKey);
     this.utilsService.showHistoryChart.next(true);
-    const index = Object.keys(this.fromSymbols).indexOf(from);
+    const index = Object.keys(this.fromSymbols).indexOf(fromKey);
     const title = Object.values(this.fromSymbols)[index];
-    StorageService.setItem('pageTitle', `${from}: ${title}`);
-    this.utilsService.historyChartFor.next(to);
+    StorageService.setItem('pageTitle', `${fromKey}: ${title}`);
+    this.utilsService.historyChartFor.next(toKey);
   }
 
   getHistory(to: string) {

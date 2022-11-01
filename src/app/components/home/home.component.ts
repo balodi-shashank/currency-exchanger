@@ -17,15 +17,25 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartViewListner();
+    this.pageTitlelistener();
   }
 
   showHistoryChart(bool: boolean) {
     this.utilsService.showHistoryChart.next(bool);
+    if(!bool) {
+      this.utilsService.pageTitle.next('Currency Exchange');
+    }
   }
 
   chartViewListner() {
     this.utilsService.showHistoryChart.subscribe((bool) => {
       this.showHistory = bool;
+    });
+  }
+
+  pageTitlelistener() {
+    this.utilsService.pageTitle.subscribe((title: string) => {
+      this.pageTitle = title;
     });
   }
 }

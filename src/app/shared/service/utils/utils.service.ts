@@ -3,17 +3,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilsService {
+  pageTitle = new BehaviorSubject<string>('CurrentExchange');
 
   showHistoryChart = new BehaviorSubject<boolean>(false);
 
-  historyChartFor = new BehaviorSubject<string>('USD')
+  historyChartFor = new BehaviorSubject<string>('USD');
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
   public getMockResponse(filename: string) {
-    return this._http.get(`../../.././../assets/mocks/${filename}.json`)
+    return this._http.get(`../../.././../assets/mocks/${filename}.json`);
   }
 }
