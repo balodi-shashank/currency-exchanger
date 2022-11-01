@@ -3,26 +3,31 @@
 :host {
     header {
         border: 1px solid $white;
+
         .navbar {
             display: flex;
             justify-content: space-between;
             padding: 0 10px;
+
             .navbar-brand {
                 img {
                     max-width: 70px;
                     max-height: 70px;
                     cursor: pointer;
-                }       
+                }
             }
-    
+
             .details-section {
                 .list {
                     list-style: none;
                     display: flex;
-                     justify-content: space-around;
+                    justify-content: space-around;
+                    margin: 0;
+                    padding: 0;
+
                     .item {
                         width: auto;
-                        border: 1px solid $white;    
+                        border: 1px solid $white;
                         border-radius: 6px;
                         padding: 10px;
                         cursor: pointer;
@@ -34,7 +39,35 @@
                 }
             }
         }
-        
+
     }
-    
+
+    /* For Mobile Portrait View */
+    @media screen and (min-device-width: 360px) and (max-device-width: 767px) and (orientation: portrait) {
+        .navbar {
+
+            .navbar-brand {
+                width: 10%;
+                max-width: 10%;
+                margin: 0;
+
+                img {
+                    max-width: 50px;
+                    max-height: 50px;
+                    cursor: pointer;
+                }
+            }
+
+            .details-section {
+                width: 70%;
+
+                .list {
+                    .item {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
 }

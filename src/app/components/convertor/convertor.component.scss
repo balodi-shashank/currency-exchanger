@@ -1,13 +1,15 @@
 @import "../../../assets/css/variables.scss";
 
 :host {
-    .wrapper{
-        height: 20vh;
+    .wrapper {
+        height: 28vh;
         border: 1px solid $white;
         padding: 10px;
+
         .left {
             width: 350px;
-            padding-right: 20px; 
+            padding-right: 20px;
+
             .convert-icon {
                 padding: 0px 20px;
                 border: 1px solid $white;
@@ -34,6 +36,7 @@
                 max-width: 60px;
                 cursor: pointer;
             }
+
             .result-section {
                 .result {
                     border: 1px solid $white;
@@ -53,6 +56,7 @@
         float: left;
         margin: 20px 17px 0 0;
         padding: 10px;
+
         &:nth-of-type(3n) {
             margin-right: 0;
         }
@@ -61,9 +65,69 @@
     .history-chart {
         border: 1px solid #ffffff;
         margin-top: 20px;
-        height: 59vh;
+        height: auto;
     }
 
 
-    
+    /* For Desktop View */
+    @media screen and (min-width: 1024px) {
+        .wrapper {
+            height: 30vh;
+        }
+
+        .tile {
+            border: 1px solid #ffffff;
+            width: 32%;
+            height: 180px;
+            float: left;
+            margin: 20px 17px 0 0;
+            padding: 10px;
+
+            &:nth-of-type(3n) {
+                margin-right: 0;
+            }
+        }
+    }
+
+    /* For Tablet View */
+    @media screen and (min-device-width: 768px) and (orientation: portrait) {
+        .tile {
+            width: 32%;
+            margin: 20px 6px 0 0;
+
+            &:nth-of-type(3n) {
+                margin-right: 0;
+            }
+        }
+    }
+
+    /* For Mobile Portrait View */
+    @media screen and (min-device-width: 360px) and (max-device-width: 767px) and (orientation: portrait) {
+        .wrapper {
+            height: 28vh;
+            font-size: 12px;
+
+            .left {
+                .conversion-rate {
+                    padding: 5px;
+                }
+            }
+
+            .right {
+                .result {
+                    padding: 10px 0;
+                }
+            }
+        }
+
+        .tile {
+            width: 31%;
+            margin: 20px 10px 0 0;
+            padding: 8px;
+
+            &:nth-of-type(3n) {
+                margin-right: 0;
+            }
+        }
+    }
 }

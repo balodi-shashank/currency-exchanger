@@ -7,7 +7,7 @@
 
 
 body {
-    min-width: 400px;
+    min-width: 360px;
     max-width: 900px;
     background-color: $dark-700;
     color: #ffffff;
@@ -17,7 +17,7 @@ body {
     margin: auto;
 }
 
-.form-control, 
+.form-control,
 .form-control:focus {
     background: $dark-700 !important;
     color: $white !important;
@@ -31,24 +31,31 @@ body {
 
 .flex {
     display: flex;
+
     &.row {
         flex-direction: row;
     }
+
     &.column {
         flex-direction: column;
     }
+
     &.sb {
         justify-content: space-between;
     }
+
     &.sa {
         justify-content: space-around;
     }
+
     &.align-c {
         align-items: center;
     }
+
     .grow-1 {
         flex-grow: 1;
     }
+
     .grow-2 {
         flex-grow: 2;
     }
@@ -66,4 +73,10 @@ body {
     position: fixed;
     bottom: 0 !important;
     right: 0;
+}
+
+@media screen and (min-device-width: 360px) and (max-device-width: 767px) and (orientation: portrait) {
+    body {
+        font-size: 12px !important;
+    }
 }
