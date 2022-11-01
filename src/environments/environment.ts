@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  secretKey: "iwWbWW9r0XQCo2uczhaBHon0Dq2m0yCW",
+  token: "iwWbWW9r0XQCo2uczhaBHon0Dq2m0yCW",
   baseAPIUrl: "https://api.apilayer.com/fixer"
 };
 

@@ -8,7 +8,7 @@ export class MainInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const header = {
             'method': req.method,
-            'apikey': environment.secretKey,
+            'apikey': environment.token,
             'redirect': 'follow',
             'Content-Type': 'application/json'
         }
