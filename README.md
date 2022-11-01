@@ -81,6 +81,7 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 *   `9 Tiles` below convertor panel shows default top currencies conversion to the user.
 
+*  Sample `unit test` cases added for refernce to added surity to the logic in the application.
 
 *   The total bundle size of the app is `~500KB` including all CSS, JS, FONT, ICONS and HTML files.
 
