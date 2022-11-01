@@ -21,6 +21,8 @@ import { NotificationService } from './shared/service/notification/notification.
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { HistoryChartComponent } from './components/history-chart/history-chart.component';
 import { CommonModule } from '@angular/common';
+import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import { AlertDialogComponent } from './shared/components/alert-dialog/alert-dialog.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,6 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
     HomeComponent,
     ConvertorComponent,
     HistoryChartComponent,
+    ConfirmationDialogComponent,
+    AlertDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,

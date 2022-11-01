@@ -70,7 +70,7 @@
 <div class="w-100" *ngIf="!showHistory">
     <ng-container *ngFor="let item of topCurrencies">
         <div class="tile flex column sa">
-            <div>{{ 'main.convertor.from' | translate }}: {{fromInput.value}}</div>
+            <div>{{ 'main.convertor.from' | translate }}: {{selectedFromCurrency}}</div>
             <div>{{ 'main.convertor.to' | translate }}: {{item}}</div>
             <div class="converted-result"> {{getConversion(inputValue, item)}} {{item}}</div>
         </div>

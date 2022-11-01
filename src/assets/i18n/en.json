@@ -13,6 +13,13 @@
         "header": {
             "eu-us-details": "EUR-USD Details",
             "eu-gb-details": "EUR-GBP Details"
+        },
+        "confirm": {
+            "ok": "Ok",
+            "cancel": "Cancel"
+        },
+        "alert": {
+            "ok": "Ok"
         }
     }    
 }

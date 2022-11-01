@@ -5,12 +5,14 @@ import { AppRoutingModule } from '../app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from '../app.module';
 import { HttpClient } from '@angular/common/http';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,

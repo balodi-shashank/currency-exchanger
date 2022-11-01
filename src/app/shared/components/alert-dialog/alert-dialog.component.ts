@@ -15,7 +15,7 @@ import { DialogData } from '../confirmation-dialog/confirmation-dialog.component
         (click)="onYesClick()"
         cdkFocusInitial
       >
-        Ok
+      {{ 'main.alert.ok' | translate }}
       </button>
     </div>
   `,
