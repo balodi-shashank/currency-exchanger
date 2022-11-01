@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { startWith } from 'rxjs';
+import { StorageService } from 'src/app/shared/service/storage/storage.service';
 import { UtilsService } from 'src/app/shared/service/utils/utils.service';
 
 @Component({
@@ -10,10 +9,10 @@ import { UtilsService } from 'src/app/shared/service/utils/utils.service';
 })
 export class HomeComponent implements OnInit {
   showHistory = false;
+  pageTitle = StorageService.getItem('pageTitle');
 
   constructor(
-    private utilsService: UtilsService,
-    private translate: TranslateService
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {

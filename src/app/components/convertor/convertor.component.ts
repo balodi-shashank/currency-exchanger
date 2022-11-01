@@ -72,6 +72,10 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     this.inputValue = value;
   }
 
+  SwitchFromTo(from: string, to: string) {
+    this.loadFromSymbols(to);
+  }
+
   chartViewListner() {
     const historyChartFlagSubscription =
       this.utilsService.showHistoryChart.subscribe((bool) => {
@@ -273,12 +277,12 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     const getHistorySubscription = forkJoin(subscription).subscribe((res) => {
       this.chartData = [];
       // static data for demo purpose
-      res = res.map((r) => ({
-        ...r,
-        rates: {
-          USD: 1 + Math.random().toFixed(2),
-        },
-      }));
+      // res = res.map((r) => ({
+      //   ...r,
+      //   rates: {
+      //     USD: 1 + Math.random().toFixed(2),
+      //   },
+      // }));
 
       const toCurrencies = to.split(',');
 

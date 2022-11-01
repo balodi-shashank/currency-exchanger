@@ -1,7 +1,18 @@
 {
     "main": {
         "nav": {
-            "pageTitle": "Currency Exchange"
+            "backToHome": "Back to home"
+        },
+        "convertor": {
+            "amount": "Amount",
+            "moreDetails": "More Details",
+            "convert": "Convert",
+            "from": "From",
+            "to" : "To"
+        },
+        "header": {
+            "eu-us-details": "EUR-USD Details",
+            "eu-gb-details": "EUR-GBP Details"
         }
     }    
 }

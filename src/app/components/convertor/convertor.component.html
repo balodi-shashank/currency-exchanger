@@ -1,7 +1,7 @@
 <div class="wrapper flex sb">
     <div class="left flex column sb">
         <div class="flex column">
-            <label for="amountFormControlInput1" class="form-label">Amount</label>
+            <label for="amountFormControlInput1" class="form-label">{{ 'main.convertor.amount' | translate }}</label>
             <input type="number" class="form-control" id="amountFormControlInput1" min="1"
                 (input)="setInput(+inputAmount.value)" #inputAmount>
         </div>
@@ -38,12 +38,12 @@
         </div>
         <button class="btn btn-primary" [disabled]="inputValue <= 0"
             (click)="exchangeCurrencyAction(fromInput.value, toInput.value, inputValue)">
-            Convert
+            {{ 'main.convertor.convert' | translate }}
         </button>
         <div class="flex result-section align-c">
             <div class="result grow-1">{{ exchangeResult }}</div>
             <button class="btn btn-primary grow-1" *ngIf="!showHistory"
-                (click)="showHistorySection(fromInput.value, toInput.value)">More Details</button>
+                (click)="showHistorySection(fromInput.value, toInput.value)">{{ 'main.convertor.moreDetails' | translate }}</button>
         </div>
     </div>
 </div>
@@ -60,8 +60,8 @@
 <div class="w-100" *ngIf="!showHistory">
     <ng-container *ngFor="let item of topCurrencies">
         <div class="tile flex column sa">
-            <div>From: {{fromInput.value}}</div>
-            <div>To: {{item}}</div>
+            <div>{{ 'main.convertor.from' | translate }}: {{fromInput.value}}</div>
+            <div>{{ 'main.convertor.to' | translate }}: {{item}}</div>
             <div class="converted-result"> {{getConversion(inputValue, item)}} {{item}}</div>
         </div>
     </ng-container>

@@ -6,8 +6,8 @@
   <article>
     <main>
       <div class="redirect">
-        <span class="fs-18">{{ 'main.nav.pageTitle' | translate }}</span>
-        <button class="btn btn-primary" *ngIf="showHistory" (click)="showHistoryChart(false)">Back to Home</button>
+        <span class="fs-18">{{ pageTitle }}</span>
+        <button class="btn btn-primary" *ngIf="showHistory" (click)="showHistoryChart(false)">{{ 'main.nav.backToHome' | translate }}</button>
       </div>
       <app-convertor></app-convertor>
     </main>

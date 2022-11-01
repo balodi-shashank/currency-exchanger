@@ -13,7 +13,7 @@ export class HeaderComponent {
   showHistoryChart(bool: boolean, curr: string) {
     const showHistory = StorageService.getItem('showHistory');
     if(showHistory !== bool.toString()) {   
-      this.utilsService.historyChartFor.next(bool.toString());
+      this.utilsService.showHistoryChart.next(bool);
     }
     const historyChartCurr = StorageService.getItem('historyChartCurr');
     if(historyChartCurr !== curr) {   
