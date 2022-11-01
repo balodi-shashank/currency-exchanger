@@ -19,7 +19,7 @@ import { MainInterceptor } from './shared/service/main-interceptor/main-intercep
 import { AppMaterialModule } from './app-material/app-material.module';
 import { NotificationService } from './shared/service/notification/notification.service';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { HistoryChartComponent } from './components/history-chart/history-chart/history-chart.component';
+import { HistoryChartComponent } from './components/history-chart/history-chart.component';
 import { CommonModule } from '@angular/common';
 
 export function createTranslateLoader(http: HttpClient) {
