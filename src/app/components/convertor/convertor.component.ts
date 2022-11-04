@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin, Observable, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { forkJoin, Observable, Subscription, take } from 'rxjs';
 import { GlobalConstants } from 'src/app/shared/constants/global-constants';
 import {
   ConvertAPIResponse,
@@ -35,7 +36,8 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     private currencyExchangeService: CurrencyExchangeService,
     public notificationService: NotificationService,
     private utilsService: UtilsService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute
   ) {
     this.subscription = new Subscription();
     this.fromSymbols = new Array<Symbols>();
@@ -49,23 +51,37 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setDefaults('EUR', 'USD');
+    this.fromSymbols = this.setSymbols('fromSymbols');
+    this.toSymbols = this.setSymbols('toSymbols');
+    this.conversionRates = this.setRates('rates');
+
+
+    this.setDefaults('USD');
   }
 
-  setDefaults(from: string, to: string) {
+  setSymbols(prop: string) {
+    const { symbols } = this.activatedRoute.snapshot.data[prop];
+
+    return symbols;
+  }
+
+  setRates(prop: string) {
+    const { rates } = this.activatedRoute.snapshot.data[prop]
+
+    return rates;
+  }
+
+  public setInput(value: number): void {
+    this.inputValue = value;
+  }
+
+  setDefaults(to: string) {
     this.chartViewListner();
-    this.loadFromSymbols(from);
-    this.loadToSymbols(Object.keys(this.fromSymbols)[0]);
-    this.getExchangeRates(from);
     this.updateRate(to);
     this.historyCharForListner();
     StorageService.setItem('showHistory', 'false');
     StorageService.setItem('historyChartCurr', to);  
     this.utilsService.pageTitle.next('Currency Exchange');
-  }
-
-  public setInput(value: number): void {
-    this.inputValue = value;
   }
 
   switchFromTo(from: string, to: string) {
@@ -90,10 +106,13 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     this.subscription.add(historyChartFlagSubscription);
   }
 
+  
+
   loadFromSymbols(base: string): void {
     const fromSymbolSubscription = this.currencyExchangeService
-      .getSymbols(base)
-      .subscribe((res: any) => {
+      .getSymbols(base);
+
+    const subscribe =  fromSymbolSubscription.subscribe((res: any) => {
         const { success, symbols } = res;
         this.fromSymbols = [];
         if (success) {
@@ -104,7 +123,7 @@ export class ConvertorComponent implements OnInit, OnDestroy {
           );
         }
       });
-    this.subscription.add(fromSymbolSubscription);
+    subscribe.unsubscribe(); 
   }
 
   loadToSymbols(base: string): void {

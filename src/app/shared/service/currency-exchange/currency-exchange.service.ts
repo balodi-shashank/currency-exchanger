@@ -25,7 +25,7 @@ export class CurrencyExchangeService {
     }
   }
 
-  public getSymbols(baseCurrency: string): Observable<SymbolsResponse> | Observable<any> {
+  public getSymbols(baseCurrency?: string): Observable<SymbolsResponse> | Observable<any> {
     if(environment.production) {
       return this._http.get<SymbolsResponse>(`${environment.baseAPIUrl}/symbols?base=${baseCurrency}`);
     } else {
