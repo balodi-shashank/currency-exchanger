@@ -19,8 +19,7 @@ import { UtilsService } from 'src/app/shared/service/utils/utils.service';
 })
 export class ConvertorComponent implements OnInit, OnDestroy {
   public inputValue = 0;
-  fromSymbols: Array<Symbols>;
-  toSymbols: Array<Symbols>;
+  symbols: Array<Symbols>;
   conversionRates = new Object();
   selectedFromCurrency = 'EUR';
   selectedToCurrency = 'USD';
@@ -40,8 +39,7 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {
     this.subscription = new Subscription();
-    this.fromSymbols = new Array<Symbols>();
-    this.toSymbols = new Array<Symbols>();
+    this.symbols = new Array<Symbols>();
     this.popularConversion = new Array<{
       from: string;
       to: string;
@@ -51,8 +49,7 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.fromSymbols = this.setSymbols('fromSymbols');
-    this.toSymbols = this.setSymbols('toSymbols');
+    this.symbols = this.setSymbols('symbols');
     this.conversionRates = this.setRates('rates');
 
 
@@ -89,9 +86,8 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     const curr2 = to.split(':')[0];
     this.fromChangeHandler(curr2);
     this.selectedToCurrency = curr1;
-    this.loadFromSymbols(curr2);
+    this.loadSymbols(curr2);
     this.getExchangeRates(curr2);
-    this.loadToSymbols(curr1);
     this.updateRate(curr1);
   }
 
@@ -108,15 +104,15 @@ export class ConvertorComponent implements OnInit, OnDestroy {
 
   
 
-  loadFromSymbols(base: string): void {
-    const fromSymbolSubscription = this.currencyExchangeService
+  loadSymbols(base: string): void {
+    const symbolSubscription = this.currencyExchangeService
       .getSymbols(base);
 
-    const subscribe =  fromSymbolSubscription.subscribe((res: any) => {
+    const subscribe =  symbolSubscription.subscribe((res: any) => {
         const { success, symbols } = res;
-        this.fromSymbols = [];
+        this.symbols = [];
         if (success) {
-          this.fromSymbols = symbols;
+          this.symbols = symbols;
         } else {
           this.notificationService.error(
             'Unable to load default currencies symbols'
@@ -126,25 +122,9 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     subscribe.unsubscribe(); 
   }
 
-  loadToSymbols(base: string): void {
-    const toSymbolsSubscription = this.currencyExchangeService
-      .getSymbols(base)
-      .subscribe((res: any) => {
-        const { success, symbols } = res;
-        this.toSymbols = [];
-        if (success) {
-          this.toSymbols = symbols;
-        } else {
-          this.notificationService.error(
-            'Unable to load output currencies symbols'
-          );
-        }
-      });
-    this.subscription.add(toSymbolsSubscription);
-  }
-
   getExchangeRates(base: string): void {
     this.selectedFromCurrency = base.split(':')[0];
+    this.selectedConversionRate = 'XX.XX';
     const excahngeRateSubscription = this.currencyExchangeService
       .getExchangeRates(this.selectedFromCurrency)
       .subscribe((res: any) => {
@@ -245,7 +225,7 @@ export class ConvertorComponent implements OnInit, OnDestroy {
   }
 
   toChangeHandler(index: number): void {
-    this.selectedToCurrency = Object.keys(this.fromSymbols)[index];
+    this.selectedToCurrency = Object.keys(this.symbols)[index];
   }
 
   updateRate(toCurrency: string) {
@@ -280,8 +260,8 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     const listner = this.utilsService.historyChartFor.subscribe(
       (curr: string) => {
         StorageService.setItem('historyChartCurr', curr);
-        const index = Object.keys(this.fromSymbols).indexOf(curr);
-        const title = Object.values(this.fromSymbols)[index];
+        const index = Object.keys(this.symbols).indexOf(curr);
+        const title = Object.values(this.symbols)[index];
         this.utilsService.pageTitle.next(`${curr}: ${title}`);
         this.selectedToCurrency = curr;
         this.getHistory(curr);
@@ -296,8 +276,8 @@ export class ConvertorComponent implements OnInit, OnDestroy {
     const toKey = to.split(':')[0];
     this.utilsService.historyChartFor.next(toKey);
     this.utilsService.showHistoryChart.next(true);
-    const index = Object.keys(this.fromSymbols).indexOf(fromKey);
-    const title = Object.values(this.fromSymbols)[index];
+    const index = Object.keys(this.symbols).indexOf(fromKey);
+    const title = Object.values(this.symbols)[index];
     StorageService.setItem('pageTitle', `${fromKey}: ${title}`);
     this.utilsService.historyChartFor.next(toKey);
   }

@@ -5,7 +5,6 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ExchangeRateResolverService } from './core/resolver/exchange-rate-resolver/exchange-rate-resolver.service';
 import { SymbolsResolverService } from './core/resolver/symbols-resolver/symbols-resolver.service';
-import { ToSymbolsResolverService } from './core/resolver/to-symbols-resolver/to-symbols-resolver.service';
 
 const routes: Routes = [
   {
@@ -17,8 +16,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     resolve: { 
-      fromSymbols: SymbolsResolverService,
-      toSymbols: ToSymbolsResolverService, 
+      symbols: SymbolsResolverService, 
       rates: ExchangeRateResolverService 
     }
   },

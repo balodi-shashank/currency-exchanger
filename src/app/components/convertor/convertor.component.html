@@ -21,7 +21,7 @@
                     (change)="getExchangeRates(fromInput.value)"
                     #fromInput
                 >
-                    <ng-container *ngFor="let item of fromSymbols | keyvalue; let i = index;">
+                    <ng-container *ngFor="let item of symbols | keyvalue; let i = index;">
                         <option [ngValue]="item.key" [selected]="item.key === selectedFromCurrency">
                             {{ item.key }}: {{ item.value }}
                         </option>
@@ -38,7 +38,7 @@
                 <select class="form-select" aria-label="Default select" [ngClass]="{'disabled': inputValue <= 0}"
                     [disabled]="inputValue <= 0" (change)="updateRate(toInput.value);"
                     #toInput>
-                    <ng-container *ngFor="let item of toSymbols | keyvalue; let i = index;">
+                    <ng-container *ngFor="let item of symbols | keyvalue; let i = index;">
                         <option [ngValue]="item.key" [selected]="item.key === selectedToCurrency">
                             {{ item.key }}: {{ item.value }}
                         </option>
