@@ -124,7 +124,7 @@ export class ConvertorComponent implements OnInit, OnDestroy {
 
   getExchangeRates(base: string): void {
     this.selectedFromCurrency = base.split(':')[0];
-    this.selectedConversionRate = 'XX.XX';
+    this.selectedConversionRate = 'XX.XX ';
     const excahngeRateSubscription = this.currencyExchangeService
       .getExchangeRates(this.selectedFromCurrency)
       .subscribe((res: any) => {
@@ -234,8 +234,8 @@ export class ConvertorComponent implements OnInit, OnDestroy {
       this.selectedToCurrency
     );
     const rateList = Object.values(this.conversionRates);
-    this.selectedConversionRate = rateList[selectedCurrencyIndex] || "XX.XX";
-    this.exchangeResult = "XX.XX";
+    this.selectedConversionRate = rateList[selectedCurrencyIndex] || "XX.XX ";
+    this.exchangeResult = "XX.XX ";
   }
 
   getConversion(amount: number, toCurrency: string) {
