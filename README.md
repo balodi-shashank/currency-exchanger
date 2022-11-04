@@ -41,6 +41,8 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 *   Used `Interceptors` to simulate backend-less login functionality while using HTTP request.
 
+*   `Custom preloading startegy` we can keep incase we have multiple modules.
+
 *   App designed from scratch with the inspiration of the bootstrap principles with Mobile first approach.
 
 *   Modular components created for reusing components elsewhere to improve modularity in the app.
